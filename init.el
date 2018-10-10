@@ -326,6 +326,7 @@ you should place your code here."
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
+  (spacemacs/toggle-camel-case-motion-globally-on)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

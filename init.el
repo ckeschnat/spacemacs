@@ -339,8 +339,55 @@ you should place your code here."
   (load-theme 'zenburn t)
   (with-eval-after-load 'org
     ;; here goes your Org config :)
-    ;; ....
-    )
+    (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org/playground.org"))
+    (setq org-startup-indented t)
+    (setq org-todo-keywords
+          '((sequence "TODO" "WAITING" "SOMEDAY" "DONE")))
+    (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
+  )
+
+  (setq compilation-directory-locked nil)
+  (setq casey-makescript "build.bat")
+
+  (defun find-project-directory-recursive ()
+    "Recursively search for a makefile."
+    (interactive)
+    (if (file-exists-p casey-makescript) t
+      (cd "../")
+      (find-project-directory-recursive)))
+
+  (defun lock-compilation-directory ()
+    "The compilation process should NOT hunt for a makefile"
+    (interactive)
+    (setq compilation-directory-locked t)
+    (message "Compilation directory is locked."))
+
+  (defun unlock-compilation-directory ()
+    "The compilation process SHOULD hunt for a makefile"
+    (interactive)
+    (setq compilation-directory-locked nil)
+    (message "Compilation directory is roaming."))
+
+  (defun find-project-directory ()
+    "Find the project directory."
+    (interactive)
+    (setq find-project-from-directory default-directory)
+    (switch-to-buffer-other-window "*compilation*")
+    (if compilation-directory-locked (cd last-compilation-directory)
+      (cd find-project-from-directory)
+      (find-project-directory-recursive)
+      (setq last-compilation-directory default-directory)))
+
+  (defun make-without-asking ()
+    "Make the current build."
+    (interactive)
+    (if (find-project-directory) (compile casey-makescript))
+    (other-window 1))
+  ;; (define-key global-map "\em" 'make-without-asking)
+  ;; (define-key evil-normal-state-map (kbd "C-]") 'make-without-asking)
+  (spacemacs/set-leader-keys "oo" 'make-without-asking)
+
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -352,6 +399,9 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(evil-search-module (quote evil-search))
  '(evil-want-Y-yank-to-eol nil)
+ '(org-agenda-files
+   (quote
+    ("c:/Users/NOBODY/Documents/Seafile/docs/org/playground.org")))
  '(package-selected-packages
    (quote
     (powershell yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-go company auto-yasnippet yasnippet ac-ispell auto-complete rainbow-mode rainbow-identifiers color-identifiers-mode leuven-dark-theme leuven-theme-theme powerline spacegray-theme spinner hydra parent-mode pkg-info epl flx iedit anzu evil goto-chg undo-tree f s dash bind-map bind-key packed helm-core popup async smartparens highlight helm avy projectile xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme htmlize heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme go-guru go-eldoc go-mode gnuplot gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub treepy graphql with-editor mmm-mode markdown-toc markdown-mode gh-md rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby adoc-mode markup-faces ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))

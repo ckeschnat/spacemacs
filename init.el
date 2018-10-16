@@ -375,6 +375,42 @@ you should place your code here."
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   )
 
+  (define-key global-map "\ew" 'other-window)
+  (define-key global-map "\ef" 'find-file)
+  (define-key global-map "\eF" 'find-file-other-window)
+
+  (global-set-key (read-kbd-macro "\eb")  'ido-switch-buffer)
+  (global-set-key (read-kbd-macro "\eB")  'ido-switch-buffer-other-window)
+
+  (defun casey-replace-in-region (old-word new-word)
+    "Perform a replace-string in the current region."
+    (interactive "sReplace: \nsReplace: %s  With: ")
+    (save-excursion (save-restriction
+		                  (narrow-to-region (mark) (point))
+		                  (beginning-of-buffer)
+		                  (replace-string old-word new-word)
+		                  ))
+    )
+  (define-key evil-normal-state-map (kbd "\el") 'casey-replace-in-region)
+
+  (defun previous-blank-line ()
+    "Moves to the previous line containing nothing but whitespace."
+    (interactive)
+    (search-backward-regexp "^[ \t]*\n")
+    )
+
+  (defun next-blank-line ()
+    "Moves to the next line containing nothing but whitespace."
+    (interactive)
+    (forward-line)
+    (search-forward-regexp "^[ \t]*\n")
+    (forward-line -1)
+    )
+
+  (define-key evil-normal-state-map (kbd "M-k") 'previous-blank-line)
+  (define-key evil-normal-state-map (kbd "M-j") 'next-blank-line)
+
+
   (setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" "C:\\texlive\\2018\\bin\\win32;" "w:\\handmade\\misc;" (getenv "PATH")))
 
   (setq compilation-directory-locked nil)

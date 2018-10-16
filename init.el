@@ -417,6 +417,7 @@ you should place your code here."
   ;; (define-key global-map "\em" 'make-without-asking)
   ;; (define-key evil-normal-state-map (kbd "C-]") 'make-without-asking)
   (spacemacs/set-leader-keys "oo" 'make-without-asking)
+  (spacemacs/set-leader-keys "oc" 'delete-frame)
 
   (setq ivy-re-builders-alist
         '((t . ivy--regex-fuzzy)))

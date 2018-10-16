@@ -330,8 +330,6 @@ you should place your code here."
   (setq-default buffer-file-coding-system 'utf-8-unix)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
-  (setq custom-file "~/.emacs.d/.cache/.custom-settings")
-  (load custom-file)
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
   (spacemacs/toggle-camel-case-motion-globally-on)
   (spacemacs/toggle-automatic-symbol-highlight-on)
@@ -434,3 +432,5 @@ you should place your code here."
   (setq garbage-collection-messages t)
 
   )
+(setq custom-file "~/.emacs.d/.cache/.custom-settings")
+(load custom-file)

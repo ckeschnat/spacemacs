@@ -341,7 +341,7 @@ you should place your code here."
   (load-theme 'zenburn t)
   (with-eval-after-load 'org
     ;; here goes your Org config :)
-    (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org/playground.org"))
+    (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
     (setq org-startup-indented t)
     (setq org-todo-keywords
           '((sequence "TODO" "WAITING" "SOMEDAY" "DONE")))
@@ -381,17 +381,6 @@ you should place your code here."
 
   (global-set-key (read-kbd-macro "\eb")  'ido-switch-buffer)
   (global-set-key (read-kbd-macro "\eB")  'ido-switch-buffer-other-window)
-
-  (defun casey-replace-in-region (old-word new-word)
-    "Perform a replace-string in the current region."
-    (interactive "sReplace: \nsReplace: %s  With: ")
-    (save-excursion (save-restriction
-		                  (narrow-to-region (mark) (point))
-		                  (beginning-of-buffer)
-		                  (replace-string old-word new-word)
-		                  ))
-    )
-  (define-key evil-normal-state-map (kbd "\el") 'casey-replace-in-region)
 
   (defun previous-blank-line ()
     "Moves to the previous line containing nothing but whitespace."
@@ -467,7 +456,6 @@ you should place your code here."
   (setq gc-cons-percentage 0.5)
   (run-with-idle-timer 5 t #'garbage-collect)
   (setq garbage-collection-messages t)
-
-  )
+)
 (setq custom-file "~/.emacs.d/.cache/.custom-settings")
 (load custom-file)

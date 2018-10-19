@@ -341,8 +341,31 @@ you should place your code here."
   (load-theme 'zenburn t)
   (with-eval-after-load 'org
     ;; here goes your Org config :)
-    (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
+
+    ;; (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
+    ;; (setq org-default-notes-file "c:/Users/NOBODY/Documents/Seafile/docs/org/notes.org")
+    (setq home-org-dir "c:/Users/NOBODY/Documents/Seafile/docs/org/")
+    (setq work-org-dir "c:/Users/chris.keschnat/docs/docs/org")
+    (setq org-agenda-files
+          (cond ((file-directory-p home-org-dir) (list home-org-dir))
+                ((file-directory-p work-org-dir) (list work-org-dir))
+          )
+    )
+    (setq org-default-notes-file (concat (car org-agenda-files) "captures.org"))
     (setq org-startup-indented t)
+    ;; More headings for refile
+    ;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+    (setq org-refile-targets '((nil :maxlevel . 9)
+                               (org-agenda-files :maxlevel . 9)))
+    (setq org-refile-use-outline-path 'file)              ; Show full paths for refiling
+    (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+    (setq helm-org-rifle-show-path t)
+    ;; (defun +org-search ()
+    ;;   (interactive) 
+    ;;   (org-refile '(4)))
+    ;; (spacemacs/set-leader-keys "or" (lambda () (interactive) (org-refile '(4))))
+    (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
+    (setq org-refile-allow-creating-parent-nodes 'confirm)
     (setq org-todo-keywords
           '((sequence "TODO" "WAITING" "SOMEDAY" "DONE")))
     (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))

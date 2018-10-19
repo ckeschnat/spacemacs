@@ -351,7 +351,7 @@ you should place your code here."
                 ((file-directory-p work-org-dir) (list work-org-dir))
           )
     )
-    (setq org-default-notes-file (concat (car org-agenda-files) "captures.org"))
+    (setq org-default-notes-file (concat (car org-agenda-files) "inbox.org"))
     (setq org-startup-indented t)
     ;; More headings for refile
     ;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))

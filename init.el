@@ -340,6 +340,9 @@ you should place your code here."
                                         ("zenburn-bg-1" . "#6A714A")
                                         ))
   (load-theme 'zenburn t)
+
+  (spacemacs/declare-prefix "o" "own-menu")
+
   (with-eval-after-load 'org
     ;; here goes your Org config :)
 
@@ -485,7 +488,7 @@ you should place your code here."
       (org-archive-subtree-hierarchical)
       )
 
-    (spacemacs/set-leader-keys "oa" 'org-archive-subtree-hierarchical)
+    (spacemacs/set-leader-keys "oc" 'org-capture)
 
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)
@@ -495,8 +498,22 @@ you should place your code here."
             ("CANCELLED" . org-done)))
 
     (setq org-todo-keywords
-          '((sequence "TODO" "NEXT" "WAITING" "SOMEDAY" "|" "CANCELLED" "DONE")))
+          '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "SOMEDAY(s)" "|" "CANCELLED(c)" "DONE(d)")))
     (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
+
+    (setq org-capture-templates
+          (quote (("t" "todo" entry (file "") "* TODO %?\n%U\n%a\n")
+                  ("n" "note" entry (file "") "* %? :NOTE:\n%U\n%a\n")
+                  )))
+
+    (setq org-use-fast-todo-selection t)
+    (setq org-todo-state-tags-triggers
+          (quote (("CANCELLED" ("CANCELLED" . t))
+                  ("WAITING" ("WAITING" . t))
+                  (done ("WAITING"))
+                  ("TODO" ("WAITING") ("CANCELLED"))
+                  ("NEXT" ("WAITING") ("CANCELLED"))
+                  ("DONE" ("WAITING") ("CANCELLED")))))
 
     (setq org-hide-emphasis-markers t)
 
@@ -592,8 +609,8 @@ you should place your code here."
     (other-window 1))
   ;; (define-key global-map "\em" 'make-without-asking)
   ;; (define-key evil-normal-state-map (kbd "C-]") 'make-without-asking)
-  (spacemacs/set-leader-keys "oo" 'make-without-asking)
-  (spacemacs/set-leader-keys "oc" 'delete-frame)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "m" 'make-without-asking)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "A" 'org-archive-subtree-hierarchical)
 
   (setq ivy-re-builders-alist
         '((t . ivy--regex-fuzzy)))

@@ -488,12 +488,13 @@ you should place your code here."
 
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)
-            ("SOMEDAY" . "yellow")
-            ("CANCELLED" . "light slate blue")
-            ("WAITING" . (:foreground "aquamarine" :weight bold))))
+            ("NEXT" . org-todo)
+            ("SOMEDAY" . (:foreground "moccasin" :weight bold))
+            ("WAITING" . (:foreground "lavender blush" :weight bold))
+            ("CANCELLED" . org-done)))
 
     (setq org-todo-keywords
-          '((sequence "TODO" "WAITING" "SOMEDAY" "|" "CANCELLED" "DONE")))
+          '((sequence "TODO" "NEXT" "WAITING" "SOMEDAY" "|" "CANCELLED" "DONE")))
     (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
 
     (setq org-hide-emphasis-markers t)

@@ -353,20 +353,17 @@ you should place your code here."
   (defun previous-blank-line ()
     "Moves to the previous line containing nothing but whitespace."
     (interactive)
-    (search-backward-regexp "^[ \t]*\n")
-    )
+    (search-backward-regexp "^[ \t]*\n"))
 
   (defun next-blank-line ()
     "Moves to the next line containing nothing but whitespace."
     (interactive)
     (forward-line)
     (search-forward-regexp "^[ \t]*\n")
-    (forward-line -1)
-    )
+    (forward-line -1))
 
   (define-key evil-normal-state-map (kbd "M-k") 'previous-blank-line)
   (define-key evil-normal-state-map (kbd "M-j") 'next-blank-line)
-
 
   (load "~/.spacemacs.d/chris-org")
   (load "~/.spacemacs.d/chris-c")

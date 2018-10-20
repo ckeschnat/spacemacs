@@ -331,6 +331,7 @@ you should place your code here."
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
   (spacemacs/toggle-camel-case-motion-globally-on)
   (spacemacs/toggle-automatic-symbol-highlight-on)
   (setq c-default-style "linux" c-basic-offset 4)

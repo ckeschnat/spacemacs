@@ -487,11 +487,13 @@ you should place your code here."
     (spacemacs/set-leader-keys "oa" 'org-archive-subtree-hierarchical)
 
     (setq org-todo-keyword-faces
-          '(("TODO" . org-warning) ("SOMEDAY" . "yellow")
+          '(("TODO" . org-warning)
+            ("SOMEDAY" . "yellow")
+            ("CANCELLED" . "light slate blue")
             ("WAITING" . (:foreground "aquamarine" :weight bold))))
 
     (setq org-todo-keywords
-          '((sequence "TODO" "WAITING" "SOMEDAY" "DONE")))
+          '((sequence "TODO" "WAITING" "SOMEDAY" "|" "CANCELLED" "DONE")))
     (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
 
     (setq org-hide-emphasis-markers t)

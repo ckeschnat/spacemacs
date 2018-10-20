@@ -1,24 +1,5 @@
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-  (setq-default buffer-file-coding-system 'utf-8-unix)
-  (setq undo-tree-auto-save-history t)
-  (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
-  (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
-  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
-  (spacemacs/toggle-camel-case-motion-globally-on)
-  (spacemacs/toggle-automatic-symbol-highlight-on)
-  (setq c-default-style "linux" c-basic-offset 4)
-  (setq zenburn-override-colors-alist '(
-                                        ("zenburn-bg-05" . "#131818")
-                                        ("zenburn-bg-1" . "#6A714A")
-                                        ))
-  (load-theme 'zenburn t)
-  (with-eval-after-load 'org
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+(with-eval-after-load 'org
     ;; here goes your Org config :)
 
     ;; (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
@@ -31,14 +12,6 @@ you should place your code here."
           )
     )
     (setq org-default-notes-file (concat (car org-agenda-files) "inbox.org"))
-    (setq org-capture-templates
-      (quote (("t" "todo" "* TODO %?\n%U\n%a\n" entry (file ""))
-              ("n" "note" "* %? :NOTE:\n%U\n%a\n" entry (file ""))
-              )))
-
-
-
-
     (setq org-startup-indented t)
     ;; More headings for refile
     ;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
@@ -171,7 +144,7 @@ you should place your code here."
       (org-archive-subtree-hierarchical)
       )
 
-    (spacemacs/set-leader-keys "oa" 'org-archive-subtree-hierarchical)
+    (spacemacs/set-leader-keys "oc" 'org-capture)
 
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)
@@ -183,6 +156,22 @@ you should place your code here."
     (setq org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "SOMEDAY(s)" "|" "CANCELLED(c)" "DONE(d)")))
     (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
+                                        ; Tags with fast selection keys
+    (setq org-tag-alist (quote (
+                                ("@home" . ?h)
+                                ("@work" . ?w)
+                                ("WAITING" . ?w)
+                                ("PERSONAL" . ?P)
+                                ("WORK" . ?W)
+                                ("NOTE" . ?n)
+                                ("CANCELLED" . ?c)
+                                ("FLAGGED" . ??)
+                                )))
+
+    (setq org-capture-templates
+          (quote (("t" "todo" entry (file "") "* TODO %?\n%U\n%a\n")
+                  ("n" "note" entry (file "") "* %? :NOTE:\n%U\n%a\n")
+                  )))
 
     (setq org-use-fast-todo-selection t)
     (setq org-todo-state-tags-triggers
@@ -192,6 +181,103 @@ you should place your code here."
                   ("TODO" ("WAITING") ("CANCELLED"))
                   ("NEXT" ("WAITING") ("CANCELLED"))
                   ("DONE" ("WAITING") ("CANCELLED")))))
+
+    ;; (setq org-agenda-custom-commands
+    ;;       (quote (("N" "Notes" tags "NOTE"
+    ;;                (
+    ;;                 (org-agenda-overriding-header "Notes")
+    ;;                 (org-tags-match-list-sublevels t)
+    ;;                 )
+    ;;                )
+    ;;              )
+    ;;       )
+    ;; )
+
+
+
+
+    ;; Do not dim blocked tasks
+    (setq org-agenda-dim-blocked-tasks nil)
+
+    ;; Compact the block agenda view
+    (setq org-agenda-compact-blocks t)
+
+    ;; Custom agenda command definitions
+    (setq org-agenda-custom-commands
+          (quote (("N" "Notes" tags "NOTE"
+                  ((org-agenda-overriding-header "Notes")
+                    (org-tags-match-list-sublevels t)))
+                  ("h" "Habits" tags-todo "STYLE=\"habit\""
+                  ((org-agenda-overriding-header "Habits")
+                    (org-agenda-sorting-strategy
+                    '(todo-state-down effort-up category-keep))))
+                  (" " "Agenda"
+                  ((agenda "" nil)
+                    (tags "REFILE"
+                          ((org-agenda-overriding-header "Tasks to Refile")
+                          (org-tags-match-list-sublevels nil)))
+                    (tags-todo "-CANCELLED/!"
+                              ((org-agenda-overriding-header "Stuck Projects")
+                                (org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                                (org-agenda-sorting-strategy
+                                '(category-keep))))
+                    (tags-todo "-HOLD-CANCELLED/!"
+                              ((org-agenda-overriding-header "Projects")
+                                (org-agenda-skip-function 'bh/skip-non-projects)
+                                (org-tags-match-list-sublevels 'indented)
+                                (org-agenda-sorting-strategy
+                                '(category-keep))))
+                    (tags-todo "-CANCELLED/!NEXT"
+                              ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                                      (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                          ""
+                                                                        " (including WAITING and SCHEDULED tasks)")))
+                                (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                                (org-tags-match-list-sublevels t)
+                                (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-sorting-strategy
+                                '(todo-state-down effort-up category-keep))))
+                    (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                              ((org-agenda-overriding-header (concat "Project Subtasks"
+                                                                      (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                          ""
+                                                                        " (including WAITING and SCHEDULED tasks)")))
+                                (org-agenda-skip-function 'bh/skip-non-project-tasks)
+                                (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-sorting-strategy
+                                '(category-keep))))
+                    (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                              ((org-agenda-overriding-header (concat "Standalone Tasks"
+                                                                      (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                          ""
+                                                                        " (including WAITING and SCHEDULED tasks)")))
+                                (org-agenda-skip-function 'bh/skip-project-tasks)
+                                (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-sorting-strategy
+                                '(category-keep))))
+                    (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                              ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
+                                                                      (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                          ""
+                                                                        " (including WAITING and SCHEDULED tasks)")))
+                                (org-agenda-skip-function 'bh/skip-non-tasks)
+                                (org-tags-match-list-sublevels nil)
+                                (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                                (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+                    (tags "-REFILE/"
+                          ((org-agenda-overriding-header "Tasks to Archive")
+                          (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                          (org-tags-match-list-sublevels nil))))
+                  nil))))
+
+
+
 
     (setq org-hide-emphasis-markers t)
 
@@ -220,86 +306,3 @@ you should place your code here."
                             '(("^ *\\([-]\\) "
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   )
-
-  (define-key global-map "\ew" 'other-window)
-  (define-key global-map "\ef" 'find-file)
-  (define-key global-map "\eF" 'find-file-other-window)
-
-  (global-set-key (read-kbd-macro "\eb")  'ido-switch-buffer)
-  (global-set-key (read-kbd-macro "\eB")  'ido-switch-buffer-other-window)
-
-  (defun previous-blank-line ()
-    "Moves to the previous line containing nothing but whitespace."
-    (interactive)
-    (search-backward-regexp "^[ \t]*\n")
-    )
-
-  (defun next-blank-line ()
-    "Moves to the next line containing nothing but whitespace."
-    (interactive)
-    (forward-line)
-    (search-forward-regexp "^[ \t]*\n")
-    (forward-line -1)
-    )
-
-  (define-key evil-normal-state-map (kbd "M-k") 'previous-blank-line)
-  (define-key evil-normal-state-map (kbd "M-j") 'next-blank-line)
-
-
-  (setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" "C:\\texlive\\2018\\bin\\win32;" "w:\\handmade\\misc;" (getenv "PATH")))
-
-  (setq compilation-directory-locked nil)
-  (setq casey-makescript "build.bat")
-
-  (defun find-project-directory-recursive ()
-    "Recursively search for a makefile."
-    (interactive)
-    (if (file-exists-p casey-makescript) t
-      (cd "../")
-      (find-project-directory-recursive)))
-
-  (defun lock-compilation-directory ()
-    "The compilation process should NOT hunt for a makefile"
-    (interactive)
-    (setq compilation-directory-locked t)
-    (message "Compilation directory is locked."))
-
-  (defun unlock-compilation-directory ()
-    "The compilation process SHOULD hunt for a makefile"
-    (interactive)
-    (setq compilation-directory-locked nil)
-    (message "Compilation directory is roaming."))
-
-  (defun find-project-directory ()
-    "Find the project directory."
-    (interactive)
-    (setq find-project-from-directory default-directory)
-    (switch-to-buffer-other-window "*compilation*")
-    (if compilation-directory-locked (cd last-compilation-directory)
-      (cd find-project-from-directory)
-      (find-project-directory-recursive)
-      (setq last-compilation-directory default-directory)))
-
-  (defun make-without-asking ()
-    "Make the current build."
-    (interactive)
-    (if (find-project-directory) (compile casey-makescript))
-    (other-window 1))
-  ;; (define-key global-map "\em" 'make-without-asking)
-  ;; (define-key evil-normal-state-map (kbd "C-]") 'make-without-asking)
-  (spacemacs/set-leader-keys "oo" 'make-without-asking)
-  (spacemacs/set-leader-keys "oc" 'delete-frame)
-
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
-  (setq ivy-use-virtual-buffers nil)
-  (setq ivy-count-format "(%d/%d) ")
-
-
-  ;; make org faster
-  ;; https://www.reddit.com/r/emacs/comments/55ork0/is_emacs_251_noticeably_slower_than_245_on_windows/d8cmm7v/
-  (setq gc-cons-threshold (* 511 1024 1024))
-  (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 5 t #'garbage-collect)
-  (setq garbage-collection-messages t)
-)

@@ -1,3 +1,0 @@
-= Spacemacs
-
-hi

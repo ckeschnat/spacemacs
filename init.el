@@ -342,6 +342,7 @@ you should place your code here."
   (setenv "PATH" (concat "C:\\msys64\\usr\\bin;" "C:\\msys64\\mingw64\\bin;" "C:\\texlive\\2018\\bin\\win32;" "w:\\handmade\\misc;" (getenv "PATH")))
 
   (spacemacs/declare-prefix "o" "own-menu")
+  (spacemacs/set-leader-keys "oc" 'org-capture)
 
   (define-key global-map "\ew" 'other-window)
   (define-key global-map "\ef" 'find-file)

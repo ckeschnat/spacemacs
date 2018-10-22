@@ -9,7 +9,7 @@
     ;; (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
     ;; (setq org-default-notes-file "c:/Users/NOBODY/Documents/Seafile/docs/org/notes.org")
     (setq home-org-dir "c:/Users/NOBODY/Documents/Seafile/docs/org/")
-    (setq work-org-dir "c:/Users/chris.keschnat/Documents/docs/org")
+    (setq work-org-dir "c:/Users/chris.keschnat/Documents/docs/org/")
     (setq org-agenda-files
           (cond ((file-directory-p home-org-dir) (list home-org-dir))
                 ((file-directory-p work-org-dir) (list work-org-dir))
@@ -32,9 +32,6 @@
     ;; (spacemacs/set-leader-keys "or" (lambda () (interactive) (org-refile '(4))))
     (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
     (setq org-refile-allow-creating-parent-nodes 'confirm)
-
-
-    (spacemacs/set-leader-keys "oc" 'org-capture)
 
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)

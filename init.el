@@ -339,7 +339,7 @@ you should place your code here."
                                         ))
   (load-theme 'zenburn t)
 
-  (setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" "C:\\texlive\\2018\\bin\\win32;" "w:\\handmade\\misc;" (getenv "PATH")))
+  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;" "C:\\msys64\\mingw64\\bin;" "C:\\texlive\\2018\\bin\\win32;" "w:\\handmade\\misc;" (getenv "PATH")))
 
   (spacemacs/declare-prefix "o" "own-menu")
 

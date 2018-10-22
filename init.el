@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      windows-scripts
      python
      shell
@@ -329,6 +330,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default buffer-file-coding-system 'utf-8-unix)
+  (setq create-lockfiles nil)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))

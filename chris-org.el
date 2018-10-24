@@ -25,6 +25,7 @@
     (load "~/.spacemacs.d/org-archive-subtree-hierarchical")
 
     (setq org-startup-indented t)
+    (setq org-export-with-sub-superscripts nil)
 
     ;; (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
     ;; (setq org-default-notes-file "c:/Users/NOBODY/Documents/Seafile/docs/org/notes.org")

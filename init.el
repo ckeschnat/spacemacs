@@ -336,7 +336,7 @@ you should place your code here."
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
   (spacemacs/toggle-camel-case-motion-globally-on)
-  (spacemacs/toggle-automatic-symbol-highlight-on)
+  (spacemacs/toggle-automatic-symbol-highlight-off)
   (setq zenburn-override-colors-alist '(
                                         ("zenburn-bg-05" . "#131818")
                                         ("zenburn-bg-1" . "#6A714A")

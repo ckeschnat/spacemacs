@@ -91,6 +91,11 @@
                   )))
 
     (add-to-list 'org-structure-template-alist
+                 (list "hh" (concat "#+SETUPFILE: themes/theme-readtheorg-local.setup\n"
+                                    "#+OPTIONS: html-postamble:nil num:nil\n"
+                                    "#+FILETAGS: ?\n")))
+
+    (add-to-list 'org-structure-template-alist
                  (list "p" (concat ":PROPERTIES:\n"
                                    "?\n"
                                    ":END:")))
@@ -98,7 +103,7 @@
     (add-to-list 'org-structure-template-alist
                  (list "eh" (concat ":EXPORT_FILE_NAME: ?\n"
                                     ":EXPORT_TITLE:\n"
-                                    ":EXPORT_OPTIONS: toc:nil html-postamble:nil num:nil")))
+                                    ":EXPORT_OPTIONS: html-postamble:nil num:nil")))
 
 
     (setq org-use-fast-todo-selection t)

@@ -370,6 +370,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "M-k") 'previous-blank-line)
   (define-key evil-normal-state-map (kbd "M-j") 'next-blank-line)
 
+  (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
   (load "~/.spacemacs.d/chris-org")
   (load "~/.spacemacs.d/chris-c")
   ;; (load "~/.spacemacs.d/chris-ivy")

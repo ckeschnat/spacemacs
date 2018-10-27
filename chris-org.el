@@ -60,7 +60,7 @@
     ;;   (interactive)
     ;;   (org-refile '(4)))
     ;; (spacemacs/set-leader-keys "or" (lambda () (interactive) (org-refile '(4))))
-    (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
+    ;; (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
     (setq org-refile-allow-creating-parent-nodes 'confirm)
 
     (setq org-todo-keyword-faces

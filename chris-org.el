@@ -39,6 +39,7 @@
           )
     )
 
+    (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
     (setq org-default-notes-file (concat (car org-agenda-files) "inbox.org"))
     ;; More headings for refile
@@ -102,6 +103,7 @@
                   ("TODO" ("WAITING") ("CANCELLED"))
                   ("NEXT" ("WAITING") ("CANCELLED"))
                   ("DONE" ("WAITING") ("CANCELLED")))))
+
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html

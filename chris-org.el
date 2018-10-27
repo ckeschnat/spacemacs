@@ -83,6 +83,17 @@
                   ("n" "note" entry (file "") "* %? :NOTE:\n%U\n%a\n")
                   )))
 
+    (add-to-list 'org-structure-template-alist
+                 (list "p" (concat ":PROPERTIES:\n"
+                                   "?\n"
+                                   ":END:")))
+
+    (add-to-list 'org-structure-template-alist
+                 (list "eh" (concat ":EXPORT_FILE_NAME: ?\n"
+                                    ":EXPORT_TITLE:\n"
+                                    ":EXPORT_OPTIONS: toc:nil html-postamble:nil num:nil")))
+
+
     (setq org-use-fast-todo-selection t)
     (setq org-todo-state-tags-triggers
           (quote (("CANCELLED" ("CANCELLED" . t))

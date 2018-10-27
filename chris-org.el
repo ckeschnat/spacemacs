@@ -44,6 +44,9 @@
     (setq org-enforce-todo-dependencies t)
     (setq org-enforce-todo-checkbox-dependencies t)
 
+    (setq org-log-redeadline (quote time))
+    (setq org-log-reschedule (quote time))
+
     (setq org-default-notes-file (concat (car org-agenda-files) "inbox.org"))
     ;; More headings for refile
     ;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))

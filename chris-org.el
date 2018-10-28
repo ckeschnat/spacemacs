@@ -29,8 +29,6 @@
     (setq org-startup-indented t)
     (setq org-export-with-sub-superscripts nil)
 
-    ;; (setq org-agenda-files (list "c:/Users/NOBODY/Documents/Seafile/docs/org"))
-    ;; (setq org-default-notes-file "c:/Users/NOBODY/Documents/Seafile/docs/org/notes.org")
     (setq home-org-dir "c:/Users/NOBODY/Documents/Seafile/docs/org/")
     (setq work-org-dir "c:/Users/chris.keschnat/Documents/docs/org/")
     (setq org-agenda-files
@@ -38,6 +36,8 @@
                 ((file-directory-p work-org-dir) (list work-org-dir))
           )
     )
+
+    (setq org-agenda-text-search-extra-files '(agenda-archives))
 
     (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
@@ -56,11 +56,6 @@
     (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 
     (setq helm-org-rifle-show-path t)
-    ;; (defun +org-search ()
-    ;;   (interactive)
-    ;;   (org-refile '(4)))
-    ;; (spacemacs/set-leader-keys "or" (lambda () (interactive) (org-refile '(4))))
-    ;; (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
     (setq org-refile-allow-creating-parent-nodes 'confirm)
 
     (setq org-todo-keyword-faces

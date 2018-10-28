@@ -371,6 +371,10 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "M-k") 'previous-blank-line)
   (define-key evil-normal-state-map (kbd "M-j") 'next-blank-line)
 
+  ;; TODO(chris): make this work (works with eval-region)
+  ;; (evil-define-key 'evilified org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
+  ;; (evil-define-key 'evilified org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
+
   (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
   (load "~/.spacemacs.d/chris-org")
   (load "~/.spacemacs.d/chris-c")

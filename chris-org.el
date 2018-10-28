@@ -20,10 +20,6 @@
                         my-pre-bg my-pre-fg))))))
 
         (add-hook 'org-export-before-processing-hook 'imalison:org-inline-css-hook)))
-
-    (evil-define-key 'evilified org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
-    (evil-define-key 'evilified org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
-
     (load "~/.spacemacs.d/org-archive-subtree-hierarchical")
 
     (setq org-startup-indented t)
@@ -151,8 +147,6 @@
 
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
     ;; (setq org-agenda-custom-commands
     ;;       (quote (("N" "Notes" tags "NOTE"

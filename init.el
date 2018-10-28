@@ -69,7 +69,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(helm-org-rifle)
+   dotspacemacs-additional-packages '(helm-org-rifle org-super-agenda)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -376,6 +376,7 @@ you should place your code here."
   ;; (evil-define-key 'evilified org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
 
   (spacemacs/set-leader-keys "or" 'helm-org-rifle-agenda-files)
+  (setq org-super-agenda-mode t)
   (load "~/.spacemacs.d/chris-org")
   (load "~/.spacemacs.d/chris-c")
   ;; (load "~/.spacemacs.d/chris-ivy")

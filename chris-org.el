@@ -20,6 +20,9 @@
                         my-pre-bg my-pre-fg))))))
 
         (add-hook 'org-export-before-processing-hook 'imalison:org-inline-css-hook)))
+
+    (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+
     (load "~/.spacemacs.d/org-archive-subtree-hierarchical")
 
     (setq org-startup-indented t)

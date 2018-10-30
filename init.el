@@ -335,6 +335,8 @@ you should place your code here."
   (setq create-lockfiles nil)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
+  ;; center after search
+  (setq scroll-conservatively 0)
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
   (spacemacs/toggle-camel-case-motion-globally-on)
   (spacemacs/toggle-automatic-symbol-highlight-off)

@@ -25,6 +25,8 @@
 
     (load "~/.spacemacs.d/org-archive-subtree-hierarchical")
 
+    (setq org-archive-location "archive/%s_archive::")
+
     (setq org-startup-indented t)
     (setq org-export-with-sub-superscripts nil)
 

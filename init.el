@@ -353,6 +353,8 @@ you should place your code here."
   (define-key global-map "\ef" 'find-file)
   (define-key global-map "\eF" 'find-file-other-window)
 
+  (define-key global-map "\eg" 'spacemacs/helm-files-do-pt)
+
   (global-set-key (read-kbd-macro "\eb")  'ido-switch-buffer)
   (global-set-key (read-kbd-macro "\eB")  'ido-switch-buffer-other-window)
 

@@ -332,14 +332,20 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default buffer-file-coding-system 'utf-8-unix)
+
   (setq create-lockfiles nil)
+
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.spacemacs.d/undo")))
   ;; center after search
   (setq scroll-conservatively 0)
+
   (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+
   (spacemacs/toggle-camel-case-motion-globally-on)
   (spacemacs/toggle-automatic-symbol-highlight-off)
+
   (setq zenburn-override-colors-alist '(
                                         ("zenburn-bg-05" . "#131818")
                                         ("zenburn-bg-1" . "#6A714A")

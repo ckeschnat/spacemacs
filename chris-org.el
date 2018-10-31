@@ -1,5 +1,3 @@
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
-
 (with-eval-after-load 'org
     ;; here goes your Org config :)
     ;; background colors for export http://ivanmalison.github.io/dotfiles/#setbackgroundcolorofsourceblocksforexport
@@ -40,7 +38,16 @@
 
     (setq org-agenda-text-search-extra-files '(agenda-archives))
 
-    (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+    ;; TODO(chris) use this?
+    ;; (setq org-publish-project-alist
+    ;;       '(("org"
+    ;;          :base-directory "c:/Users/NOBODY/Documents/Seafile/docs/org/"
+    ;;          :publishing-directory "c:/Users/NOBODY/Documents/Seafile/docs/org/html/"
+    ;;          :publishing-function org-html-publish-to-html
+    ;;          :section-numbers nil
+    ;;          :table-of-contents nil)))
+
+    (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . auto)))
 
     (setq org-enforce-todo-dependencies t)
     (setq org-enforce-todo-checkbox-dependencies t)
@@ -68,8 +75,6 @@
 
     (setq org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "SOMEDAY(s)" "|" "CANCELLED(c)" "DONE(d)")))
-    (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h)))
-                                        ; Tags with fast selection keys
     (setq org-tag-alist (quote (
                                 ("@home" . ?h)
                                 ("@work" . ?w)
@@ -79,6 +84,8 @@
                                 ("NOTE" . ?n)
                                 ("CANCELLED" . ?c)
                                 ("FLAGGED" . ??)
+                                ("watch" . nil)
+                                ("read" . nil)
                                 )))
 
     (setq org-capture-templates

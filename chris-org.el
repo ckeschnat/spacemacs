@@ -76,16 +76,15 @@
     (setq org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "SOMEDAY(s)" "|" "CANCELLED(c)" "DONE(d)")))
     (setq org-tag-alist (quote (
-                                ("@home" . ?h)
-                                ("@work" . ?w)
-                                ("WAITING" . ?w)
+                                ("@home" . ?H)
+                                ("@work" . ?W)
+                                ("WAITING" . ?A)
                                 ("PERSONAL" . ?P)
-                                ("WORK" . ?W)
                                 ("NOTE" . ?n)
-                                ("CANCELLED" . ?c)
+                                ("CANCELLED" . ?C)
                                 ("FLAGGED" . ??)
-                                ("watch" . nil)
-                                ("read" . nil)
+                                ("watch" . ?w)
+                                ("read" . ?r)
                                 )))
 
     (setq org-capture-templates

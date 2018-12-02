@@ -1,5 +1,5 @@
 (with-eval-after-load 'org
-    ;;  here goes your Org config :)
+    ;; here goes your Org config :)
     ;; background colors for export http://ivanmalison.github.io/dotfiles/#setbackgroundcolorofsourceblocksforexport
     (use-package org
       :config
